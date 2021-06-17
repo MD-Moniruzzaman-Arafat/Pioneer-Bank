@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pioneer-Bank</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="shadow p-5 rounded" id="loginArea">
+        <h1 class="text-center">Welcome to pioneer Bank</h1>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+        </div>
+        <button type="submit" class="btn btn-primary" id="login">Login</button>
+    </div>
+    <!-- Transaction Area -->
+    <div id="transactionArea">
+        <h1 class="text-center">Transaction Area</h1>
+        <br><br>
+        <div class="d-flex justify-content-around">
+            <div class="text-center bg-success text-white p-5 rounded">
+                <h5>Deposit</h5>
+                <h2>$ <span id="currantdeposit">00</span></h2>
+            </div>
+            <div class="text-center bg-danger text-white p-5 rounded">
+                <h5>Withdraw</h5>
+                <h2>$ <span id="currantwithdraw">00</span></h2>
+            </div>
+            <div class="text-center bg-info text-white p-5 rounded">
+                <h5>Balance</h5>
+                <h2>$ <span id="currentBlance">1200</span></h2>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="form-group shadow rounded col-md-5 m-5">
+                <div class="p-5">
+                <label for="dipositAmount">Diposit</label>
+                <input type="email" class="form-control" id="dipositAmount" aria-describedby="emailHelp">
+                <br>
+                <button type="submit" class="btn btn-primary" id="Diposit">Diposit</button>
+                </div>
+            </div>
+            <div class="form-group shadow rounded col-md-5 m-5">
+                <div class=" p-5">
+                <label for="withdrawAmount">Withdraw</label>
+                <input type="email" class="form-control" id="withdrawAmount" aria-describedby="emailHelp">
+                <br>
+                <button type="submit" class="btn btn-primary" id="Withdraw">Withdraw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- javaScript -->
+    <script>
+        // login eventlistener
+        const loginBtn = document.getElementById("login");
+        loginBtn.addEventListener("click", function(){
+            const loginFrom = document.getElementById("loginArea");
+            loginFrom.style.display="none";
+            const transaction = document.getElementById("transactionArea");
+            transaction.style.display="block";
+        })
+        // deposit eventlistener
+        const depositBtn = document.getElementById("Diposit");
+        depositBtn.addEventListener("click",function(){
+            // const depositAmounts = document.getElementById("dipositAmount").value;
+            // const dipositAmountNumber = parseFloat(depositAmounts);
+
+            const dipositAmountNumber = getInput("dipositAmount");
+
+            // const currentdeposit = document.getElementById("currantdeposit").innerHTML;
+            // const currentdepositNumber = parseFloat(currentdeposit);
+            // const totalDiposit = dipositAmountNumber + currentdepositNumber;
+            // document.getElementById("currantdeposit").innerHTML= totalDiposit;
+
+            // const currentBlance = document.getElementById("currentBlance").innerHTML;
+            // const currentBlanceNumber = parseFloat(currentBlance);
+            // const totalBlance = dipositAmountNumber + currentBlanceNumber;
+            // document.getElementById("currentBlance").innerHTML=totalBlance;
+
+            updateSpanTag("currantdeposit", dipositAmountNumber);
+            updateSpanTag("currentBlance" , dipositAmountNumber);
+
+            document.getElementById("dipositAmount").value="";
+        })
+        const withdraw = document.getElementById("Withdraw");
+        withdraw.addEventListener("click", function(){
+            const withdraw = getInput("withdrawAmount");
+            
+            // const currentWithdrows = document.getElementById("currantwithdraw").innerHTML;
+            // const currantwithdrawNumber = parseFloat(currentWithdrows);
+            // const totalwithdraw = currantwithdrawNumber + withdraw;
+            // document.getElementById("currantwithdraw").innerHTML=totalwithdraw;
+            updateSpanTag("currantwithdraw", withdraw);
+            updateSpanTag("currentBlance", -1 * withdraw);
+
+            document.getElementById("withdrawAmount").value="";
+        })
+
+        function getInput(id){
+            const Amounts = document.getElementById(id).value;
+            const AmountNumber = parseFloat(Amounts);
+            return AmountNumber;
+        }
+
+        function updateSpanTag(id,dipositAmountNumber){
+            const current = document.getElementById(id).innerText;
+            const currentNumber = parseFloat(current);
+            const total = dipositAmountNumber + currentNumber;
+            document.getElementById(id).innerText=total;
+        }
+
+
+    </script>
+</body>
+</html>
